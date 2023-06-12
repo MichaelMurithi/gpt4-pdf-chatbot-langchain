@@ -12,14 +12,18 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write",
-    "ingest": "tsx -r dotenv/config scripts/ingest-data.ts"
+    "ingest": "tsx -r dotenv/config scripts/ingest-data.ts",
+    "drive": "tsx -r dotenv/config drive/index.ts"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.1",
+    "@googleapis/drive": "^5.1.0",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@pinecone-database/pinecone": "0.0.14",
     "@radix-ui/react-accordion": "^1.1.1",
     "clsx": "^1.2.1",
     "dotenv": "^16.0.3",
+    "googleapis": "^118.0.0",
     "langchain": "0.0.82",
     "lucide-react": "^0.125.0",
     "next": "13.2.3",

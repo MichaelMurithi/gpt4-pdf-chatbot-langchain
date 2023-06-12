@@ -1,17 +1,13 @@
-import { useRef, useState, useEffect } from 'react';
 import Layout from '@/components/layout';
+import LoadingDots from '@/components/ui/LoadingDots';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import styles from '@/styles/Home.module.css';
 import { Message } from '@/types/chat';
-import Image from 'next/image';
-import ReactMarkdown from 'react-markdown';
-import LoadingDots from '@/components/ui/LoadingDots';
 import { Document } from 'langchain/document';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import TypewriterComponent from 'typewriter-effect';
 
 export default function Home() {
   const [query, setQuery] = useState<string>('');
@@ -25,7 +21,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, what would you like to learn about this document?',
+        message: 'Hi, what you like to learn from the available documents?',
         type: 'apiMessage',
       },
     ],
@@ -123,7 +119,7 @@ export default function Home() {
   return (
     <>
       <Layout>
-        <div className="mx-auto flex flex-col gap-4">
+        <div className="dark mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
             Chat With Your Docs
           </h1>
@@ -169,9 +165,21 @@ export default function Home() {
                       <div key={`chatMessage-${index}`} className={className}>
                         {icon}
                         <div className={styles.markdownanswer}>
-                          <ReactMarkdown linkTarget="_blank">
-                            {message.message}
-                          </ReactMarkdown>
+                          {
+                            message.type === "apiMessage" ? (<TypewriterComponent onInit={(typewriter) => {
+                              typewriter.typeString(message.message)
+                                .changeDelay(1)
+                                .callFunction(() => {
+                                  document.querySelector(".Typewriter__cursor")?.remove();
+                                })
+                                .start();
+                            }} />)
+                              :
+                              <ReactMarkdown>
+                                {message.message}
+                              </ReactMarkdown>
+                          }
+
                         </div>
                       </div>
                       {message.sourceDocs && (
@@ -261,8 +269,8 @@ export default function Home() {
           </main>
         </div>
         <footer className="m-auto p-4">
-          <a href="https://twitter.com/mayowaoshin">
-            Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
+          <a href="https://twitter.com/murithi_myke">
+            Powered by LangChainAI. Current version built by (Twitter: @murithi_myke).
           </a>
         </footer>
       </Layout>

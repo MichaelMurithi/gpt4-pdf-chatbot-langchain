@@ -1,4 +1,4 @@
-import styles from "../styles/FilePreview.module.css";
+import styles from "../../styles/FilePreview.module.css";
 
 const FilePreview = ({ fileData }: any) => {
   return (

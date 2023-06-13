@@ -1,6 +1,7 @@
 import Head from "next/head";
-import DropZone from "../components/DropZone";
-import styles from "../styles/Home.module.css";
+import DropZone from "../components/documents-upload/DropZone";
+import styles from "../styles/Documents.module.css";
+import '../styles/documents.globals.css';
 
 export default function Documents() {
   return (

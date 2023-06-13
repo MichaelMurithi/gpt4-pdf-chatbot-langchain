@@ -1,5 +1,5 @@
 import { useDropZoneHandlers } from "@/utils/documents-upload/file-handlers";
-import styles from "../styles/DropZone.module.css";
+import styles from "../../styles/DropZone.module.css";
 import FilePreview from "./FilePreview";
 
 const DropZone = () => {

@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps}: AppProps) {
     <SessionProvider session={pageProps.session}>
       <main className={inter.variable}>
         <Auth>
-          <Component {...pageProps}/>
+          <Component {...pageProps} />
         </Auth>
       </main>
    </SessionProvider>

@@ -28,9 +28,9 @@ export default function useChat() {
     const messageListRef = useRef<HTMLDivElement>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleEnter = (e: any) => {
+    const handleEnter = async (e: any) => {
         if (e.key === 'Enter' && query) {
-            handleSubmit(e);
+            await handleSubmit(e);
         } else if (e.key == 'Enter') {
             e.preventDefault();
         }

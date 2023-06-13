@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 export default function Auth({ children }: any) {
     const {data, status} = useSession()
-    const isUser = !!!data?.user
+    const isUser = !!data?.user
 
     useEffect(() => {
         if (status === 'loading') return // Do nothing while loading

@@ -4,6 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import styles from '@/styles/Home.module.css';
 import { Message } from '@/types/chat';
 import { Document } from 'langchain/document';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -32,6 +33,7 @@ export default function Home() {
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
     textAreaRef.current?.focus();
@@ -121,7 +123,7 @@ export default function Home() {
       <Layout>
         <div className="dark mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-            Chat With Your Docs
+            Hey { session?.user?.name}, chat with your docs
           </h1>
           <main className={styles.main}>
             <div className={styles.cloud}>

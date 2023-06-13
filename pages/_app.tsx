@@ -2,7 +2,7 @@ import '@/styles/base.css';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
-import Auth from './auth';
+import Auth from '../components/auth/auth';
 
 const inter = Inter({
   variable: '--font-inter',

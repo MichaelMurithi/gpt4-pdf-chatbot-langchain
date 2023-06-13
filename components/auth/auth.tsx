@@ -6,9 +6,9 @@ export default function Auth({ children }: any) {
     const isUser = !!data?.user
 
     useEffect(() => {
-        if (status === 'loading') return // Do nothing while loading
+      if (status === 'loading') return;
 
-        if (!isUser) signIn('google') // If not authenticated, force log in
+      if (!isUser) signIn('google');
 
     }, [isUser, status])
 
@@ -16,7 +16,5 @@ export default function Auth({ children }: any) {
       return children
     }
 
-    // Session is being fetched, or no user.
-    // If no user, useEffect() will redirect.
-    return <div>Loading...</div>
-  }
+    return <div>Signing you in...</div>
+}

@@ -1,4 +1,4 @@
-import { useDropZoneHandlers } from "@/utils/documents-upload/file-handlers";
+import { useDropZoneHandlers } from "@/utils/file-handlers";
 import styles from "../../styles/DropZone.module.css";
 import FilePreview from "./FilePreview";
 

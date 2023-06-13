@@ -9,7 +9,6 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import TypewriterComponent from 'typewriter-effect';
-import FileListButton from './files';
 
 export default function Home() {
   const [query, setQuery] = useState<string>('');
@@ -31,7 +30,6 @@ export default function Home() {
   });
 
   const { messages, history } = messageState;
-
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const { data: session } = useSession();

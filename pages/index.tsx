@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import TypewriterComponent from 'typewriter-effect';
+import FileListButton from './files';
 
 export default function Home() {
   const [query, setQuery] = useState<string>('');
@@ -271,6 +272,7 @@ export default function Home() {
           </main>
         </div>
         <footer className="m-auto p-4">
+          <FileListButton/>
           <a href="https://twitter.com/murithi_myke">
             Powered by LangChainAI. Current version built by (Twitter: @murithi_myke).
           </a>

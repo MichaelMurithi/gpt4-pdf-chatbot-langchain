@@ -1,5 +1,22 @@
+import { useReducer } from "react";
 
-export function useDropZoneHandlers(data: any, dispatch: (...args: any) => any) {
+export function useDropZoneHandlers() {
+    const reducer = (state: any, action: any) => {
+        switch (action.type) {
+            case "SET_IN_DROP_ZONE":
+                return { ...state, inDropZone: action.inDropZone };
+            case "ADD_FILE_TO_LIST":
+                return { ...state, fileList: state.fileList.concat(action.files) };
+            default:
+                return state;
+        }
+    };
+
+    const [data, dispatch] = useReducer(reducer, {
+        inDropZone: false,
+        fileList: [],
+    });
+
     const handleDragEnter = (e: any) => {
         e.preventDefault();
         e.stopPropagation();
@@ -69,6 +86,6 @@ export function useDropZoneHandlers(data: any, dispatch: (...args: any) => any) 
         }
     };
 
-    return { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, handleFileSelect, uploadFiles }
+    return { data, handleDragEnter, handleDragLeave, handleDragOver, handleDrop, handleFileSelect, uploadFiles }
 }
 

@@ -2,8 +2,8 @@ import { useDropZoneHandlers } from "@/utils/documents-upload/file-handlers";
 import styles from "../styles/DropZone.module.css";
 import FilePreview from "./FilePreview";
 
-const DropZone = ({ data, dispatch }: any) => {
-    const { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, handleFileSelect, uploadFiles } = useDropZoneHandlers(data, dispatch);
+const DropZone = () => {
+    const { data, handleDragEnter, handleDragLeave, handleDragOver, handleDrop, handleFileSelect, uploadFiles } = useDropZoneHandlers();
 
     return (
         <>

@@ -1,5 +1,5 @@
+import DocumentsHelper from '@/lib/documents-helper';
 import formidable from 'formidable';
-import * as fs from 'fs';
 import { NextApiHandler, NextApiRequest } from 'next';
 import path from 'path';
 
@@ -38,15 +38,7 @@ const readFile = (req: NextApiRequest, saveLocally: boolean) => {
 const handler: NextApiHandler = async (req, res) => {
     const userId: string = req.headers.userId as string;
 
-    try {
-        await fs.readdir(path.join(process.cwd(), "/docs", userId),
-            (_, files) => console.log(`Read ${files.length} files`)
-        )
-    } catch (e) {
-        await fs.mkdir(path.join(process.cwd(), "/docs", userId),
-            () => console.log(`User documents directory created successfully`)
-        )
-    }
+    DocumentsHelper.getUserDocumentsDirectory(userId);
 
     await readFile(req, true);
 

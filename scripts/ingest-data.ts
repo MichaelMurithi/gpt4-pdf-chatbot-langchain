@@ -1,12 +1,12 @@
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
-import { PineconeStore } from 'langchain/vectorstores/pinecone';
-import { pinecone } from '@/utils/pinecone-client';
-import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from '@/config/pinecone';
+import { pinecone } from '@/utils/pinecone-client';
 import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
+import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
+import { PineconeStore } from 'langchain/vectorstores/pinecone';
 
-/* Name of directory to retrieve your files from 
+/* Name of directory to retrieve your files from
    Make sure to add your PDF files inside the 'docs' folder
 */
 const filePath = 'docs';

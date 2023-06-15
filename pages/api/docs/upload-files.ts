@@ -14,9 +14,9 @@ const readFile = (req: NextApiRequest, saveLocally: boolean) => {
     const userId: string = req.headers.userId as string;
 
     if (saveLocally) {
-        options.uploadDir = path.join(process.cwd(), "/docs", userId);
+        options.uploadDir = path.join(process.cwd(), "/documents", userId);
 
-        options.filename = (name, ext, path, form) => {
+        options.filename = (_name, _ext, path, form) => {
             return userId + "_" + path.originalFilename;
         }
 

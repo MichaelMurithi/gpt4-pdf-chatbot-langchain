@@ -2,7 +2,10 @@ import '@/styles/base.css';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 import Auth from '../components/auth/auth';
+import '../styles/documents.globals.css';
 
 const inter = Inter({
   variable: '--font-inter',

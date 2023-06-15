@@ -17,18 +17,24 @@ export default class DocumentsHelper {
     static allowedFileExtensions = Object.keys(this.extensionToMimetypeMap);
     static allowedFileMimeTypes = Object.values(this.extensionToMimetypeMap);
 
+    static async getDocumentPath(userId: string, fileName: string) {
+        const destinationDir = await this.getUserDocumentsDirectory(userId);
+
+        return path.join(destinationDir, this.getBaseFileName(fileName));
+    }
+
     static async getUserDocumentsDirectory(userId: string): Promise<string> {
         const userFilesDirectory = path.join(path.join(process.cwd(), "/documents"), userId);
 
-        try {
-            await fs.readdir(userFilesDirectory, (_, _files) => console.log(`Found an existing user's directory at ${userFilesDirectory}`))
+        if (!fs.existsSync(userFilesDirectory)) {
+            fs.mkdirSync(userFilesDirectory, { recursive: true });
 
-            return userFilesDirectory;
-        } catch (e) {
-            await fs.mkdir(userFilesDirectory, () => console.log(`User's documents directory created successfully at ${userFilesDirectory}`))
-
-            throw (e);
+            console.log(`User's documents directory created successfully at ${userFilesDirectory}`)
+        } else {
+            console.log(`Found an existing user's directory at ${userFilesDirectory}`);
         }
+
+        return Promise.resolve(userFilesDirectory);
     }
 
     static getMimetypeFromExtension(fileExtension: string) {
@@ -43,6 +49,10 @@ export default class DocumentsHelper {
                 console.log('File deleted successfully:', filePath);
             }
         });
+    }
+
+    static getBaseFileName(fileName: string) {
+        return path.basename(fileName);
     }
 
     static getReadStream(filePath: string) {

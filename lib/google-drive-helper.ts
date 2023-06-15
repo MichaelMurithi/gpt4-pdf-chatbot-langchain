@@ -71,7 +71,7 @@ export class GoogleDriveHelper {
 
             if (files && files.length > 0) {
                 for (const file of files) {
-                    console.log(`Downloading file ${file.id} - ${file.name} owned by ${file.owners}`)
+                    console.log(`Downloading file ${file.name}`)
 
                     await this.downloadFileById(file.id!);
                 }
@@ -97,19 +97,21 @@ export class GoogleDriveHelper {
 
     async downloadFileById(fileId: string) {
         try {
+            const fileMetadata = await this.drive.files.get({ fileId, fields: 'name' });
+            const destinationFilePath = await DocumentsHelper.getDocumentPath(this.userId, fileMetadata.data.name!);
+            const destinationFile = DocumentsHelper.getWriteStream(destinationFilePath);
+
             const response = await this.drive.files.get(
                 { fileId: fileId, alt: 'media' },
                 { responseType: 'stream' }
             );
-            const destinationFilePath = await DocumentsHelper.getUserDocumentsDirectory(this.userId);
-            const destFile = DocumentsHelper.getWriteStream(destinationFilePath);
 
-            response.data.pipe(destFile);
+            response.data.pipe(destinationFile);
             console.log(`Successfully downloaded file by id ${fileId}`);
 
             await new Promise((resolve, reject) => {
-                destFile.on('finish', resolve);
-                destFile.on('error', reject);
+                destinationFile.on('finish', resolve);
+                destinationFile.on('error', reject);
             });
         } catch (error) {
             console.log(`Downloading file ${fileId} from google drive failed with error ${error}`);

@@ -41,3 +41,6 @@ next-env.d.ts
 
 #Auth keys
 oauth2.keys.json
+
+#training documents
+/documents

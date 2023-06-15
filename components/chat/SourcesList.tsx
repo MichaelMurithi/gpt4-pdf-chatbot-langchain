@@ -2,7 +2,6 @@ import { Document } from 'langchain/document';
 import ReactMarkdown from "react-markdown";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 
-
 const SourcesList = ({ sourceDocs }: {sourceDocs: Document[]}) => {
   return (
     <div className="p-5">

@@ -75,11 +75,17 @@ export class GoogleDriveHelper {
 
                     await this.downloadFileById(file.id!);
                 }
+
+                return files;
             } else {
                 console.log('No files found in the directory.');
+
+                return files;
             }
         } catch (error) {
             console.error(`Error downloading files from ${folderUrl}:`, error);
+
+            Promise.reject(`Failed to download files from ${folderUrl} due to ${error}`)
         }
     }
 

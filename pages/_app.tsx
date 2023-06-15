@@ -1,19 +1,27 @@
 import '@/styles/base.css';
-import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
+import { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import Auth from '../components/auth/auth';
+import '../styles/documents.globals.css';
 
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps}: AppProps) {
+
   return (
-    <>
+    <SessionProvider session={pageProps.session}>
       <main className={inter.variable}>
-        <Component {...pageProps} />
+        <Auth>
+          <Component {...pageProps} />
+        </Auth>
       </main>
-    </>
+   </SessionProvider>
   );
 }
 

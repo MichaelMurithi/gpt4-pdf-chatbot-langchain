@@ -1,8 +1,6 @@
-import { config } from 'dotenv';
+import { GOOGLE_DRIVE_SCOPES } from '@/lib/google-drive-helper';
 import NextAuth, { AuthOptions, SessionStrategy } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-
-config();
 
 export const authOptions = {
     providers: [
@@ -13,7 +11,8 @@ export const authOptions = {
                 params: {
                     prompt: "consent",
                     access_type: "offline",
-                    response_type: "code"
+                    response_type: "code",
+                    scope: `openid email profile ${GOOGLE_DRIVE_SCOPES.join(' ')}`
                 }
             }
         }),

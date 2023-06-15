@@ -3,6 +3,10 @@ import { google } from "googleapis";
 import { url } from "inspector";
 import DocumentsHelper from "./documents-helper";
 
+export const GOOGLE_DRIVE_SCOPES = [
+    'https://www.googleapis.com/auth/drive',
+];
+
 export class GoogleDriveHelper {
     private readonly credentials = {
         client_id: process.env.CLIENT_ID,
@@ -16,7 +20,7 @@ export class GoogleDriveHelper {
         this.userId = userId;
         this.drive = google.drive({
             version: 'v3',
-            auth: this.getAuthenticatedClient(accessToken)
+            auth: this.getOAuth2Client(accessToken)
         })
     }
 
@@ -140,8 +144,8 @@ export class GoogleDriveHelper {
                 fields: 'files(name, mimeType, id)',
                 pageSize: 1000, // Increase if you have more files in the folder
             });
-
             const items = response.data.files;
+
             if (items) {
                 for (const item of items) {
                     const filePath = parentPath ? `${parentPath}/${item.name}` : item.name;
@@ -158,19 +162,6 @@ export class GoogleDriveHelper {
         await getFilesRecursive.call(this, folderId);
 
         return this.getValidDocumentsFromFiles(files);
-    }
-
-
-    private getAuthenticatedClient(token: string) {
-        const oAuth2Client = new google.auth.OAuth2(
-            this.credentials.client_id,
-            this.credentials.client_secret,
-            this.credentials.redirect_uri
-        );
-
-        oAuth2Client.setCredentials({ access_token: token });
-
-        return oAuth2Client;
     }
 
     private getFolderIdFromUrl(folderUrl: string) {
@@ -194,6 +185,20 @@ export class GoogleDriveHelper {
     }
 
     private getValidDocumentsFromFiles(files: drive_v3.Schema$File[]) {
-        return files.filter(file => DocumentsHelper.allowedFileMimeTypes.includes(file.fileExtension!))
+        return files.filter(file => DocumentsHelper.allowedFileMimeTypes.includes(file.mimeType!))
+    }
+
+    private getOAuth2Client(token: string) {
+        console.log(this.credentials);
+
+        const oAuth2Client = new google.auth.OAuth2(
+            this.credentials.client_id,
+            this.credentials.client_secret,
+            this.credentials.redirect_uri
+        );
+
+        oAuth2Client.setCredentials({ access_token: token });
+
+        return oAuth2Client;
     }
 }

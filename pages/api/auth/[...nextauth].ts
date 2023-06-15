@@ -22,13 +22,13 @@ export const authOptions = {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async session({ session, token, user }: any) {
+        async session({ session, token }: any) {
             session.user.id = token.id;
             session.user.token = token.accessToken;
 
             return session;
         },
-        async jwt({ token, user, account, profile, isNewUser }: any) {
+        async jwt({ token, user, account }: any) {
             if (user) {
                 token.id = user.id;
             }

@@ -8,11 +8,14 @@ export const GOOGLE_DRIVE_SCOPES = [
 ];
 
 export class GoogleDriveHelper {
-    private readonly credentials = {
+    private readonly fileUrlPattern: RegExp = /\/file\/d\/([a-zA-Z0-9_-]+)/;
+    private readonly folderUrlPattern: RegExp = /\/folders\/([a-zA-Z0-9_-]+)/;
+    private readonly clientCredentials = {
         client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
         redirect_uri: process.env.REDIRECT_URIS
     }
+
     private userId: string;
     private drive: drive_v3.Drive;
 
@@ -150,7 +153,7 @@ export class GoogleDriveHelper {
             const response = await this.drive.files.list({
                 q: `'${folderId}' in parents and trashed=false`,
                 fields: 'files(name, mimeType, id)',
-                pageSize: 1000, // Increase if you have more files in the folder
+                pageSize: 1000
             });
             const items = response.data.files;
 
@@ -173,7 +176,7 @@ export class GoogleDriveHelper {
     }
 
     private getFolderIdFromUrl(folderUrl: string) {
-        const match = folderUrl.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+        const match = folderUrl.match(this.folderUrlPattern);
 
         if (match && match[1]) {
             return match[1];
@@ -183,7 +186,7 @@ export class GoogleDriveHelper {
     }
 
     private getFileIdFromUrl(fileUrl: string) {
-        const match = fileUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+        const match = fileUrl.match(this.fileUrlPattern);
 
         if (match && match[1]) {
             return match[1];
@@ -197,12 +200,10 @@ export class GoogleDriveHelper {
     }
 
     private getOAuth2Client(token: string) {
-        console.log(this.credentials);
-
         const oAuth2Client = new google.auth.OAuth2(
-            this.credentials.client_id,
-            this.credentials.client_secret,
-            this.credentials.redirect_uri
+            this.clientCredentials.client_id,
+            this.clientCredentials.client_secret,
+            this.clientCredentials.redirect_uri
         );
 
         oAuth2Client.setCredentials({ access_token: token });

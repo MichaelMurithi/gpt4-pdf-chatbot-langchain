@@ -1,7 +1,7 @@
 import { GoogleDriveHelper } from '@/lib/google-drive-helper';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse): void {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         const { token } = req.headers;
         const { folderUrl, userId } = req.body;

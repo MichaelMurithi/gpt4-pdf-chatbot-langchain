@@ -1,5 +1,5 @@
 import Head from "next/head";
-import DropZone from "../components/documents-upload/DropZone";
+import DropZone from "../components/documents/DropZone";
 import styles from "../styles/Documents.module.css";
 import '../styles/documents.globals.css';
 

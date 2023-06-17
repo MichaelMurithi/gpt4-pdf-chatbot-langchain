@@ -1,7 +1,6 @@
-import { ChatContext } from '@/pages/chat';
+import { useChat } from '@/contexts/ChatContext';
 import styles from '@/styles/Home.module.css';
 import { useSession } from 'next-auth/react';
-import { useContext } from 'react';
 import LoadingDots from './LoadingDots';
 
 const MessageInput = () => {
@@ -12,7 +11,7 @@ const MessageInput = () => {
 		setQuery,
 		handleEnter,
 		handleSubmit,
-	} = useContext(ChatContext);
+	} = useChat();
 	const { data: session } = useSession();
 
 	return (
@@ -32,7 +31,7 @@ const MessageInput = () => {
 							loading
 								? 'Waiting for response...'
 								: `${
-										session?.user.name?.split(' ')[0]
+										session!.user!.name?.split(' ')[0]
 								  }, what would you like to know?`
 						}
 						value={query}

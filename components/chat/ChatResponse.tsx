@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { ChatContext } from '@/pages/chat';
+import { useChat } from '@/contexts/ChatContext';
 import styles from '@/styles/Home.module.css';
-import { Message } from '@/types/chat';
-import { useContext } from 'react';
+import { Message } from '@/types/chat.interface';
 import ReactMarkdown from 'react-markdown';
 import TypewriterComponent from 'typewriter-effect';
 import SourcesList from './SourcesList';
@@ -14,7 +13,7 @@ const ChatResponse = ({
 	message: Message;
 	index: number;
 }) => {
-	const { messages, loading } = useContext(ChatContext);
+	const { messages, loading } = useChat();
 	let icon;
 	let className;
 

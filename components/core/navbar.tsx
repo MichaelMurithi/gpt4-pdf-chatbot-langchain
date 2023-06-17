@@ -2,7 +2,7 @@ import { NavbarProps } from '@/types/layout';
 import { useSession } from 'next-auth/react';
 import { Avatar } from 'primereact/avatar';
 import { Sidebar } from 'primereact/sidebar';
-import DocumentsList from '../documents/documents-list';
+import DocumentsList from '../documents/DocumentsList';
 
 const Navbar = ({ visible, toggleVisibility }: NavbarProps) => {
 	const { data } = useSession();

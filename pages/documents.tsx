@@ -1,25 +1,27 @@
-import Head from 'next/head';
-import styles from '../styles/Documents.module.css';
+import DropZone from '@/components/documents/DropZone';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { useState } from 'react';
 
 export default function Documents() {
+	const [visible, setVisible] = useState(false);
+
 	return (
-		<div className={styles.container}>
-			<Head>
-				<title>Documents upload</title>
-				<meta
-					name='description'
-					content='Chatdocs drag and drop documents upload'
-				/>
-				<link rel='icon' href='/favicon.ico' />
-			</Head>
-
-			<main className={styles.main}>
-				<p>Documents upload page</p>
-			</main>
-
-			<footer className={styles.footer}>
-				<div>{new Date().getFullYear()}</div>
-			</footer>
+		<div className='card flex justify-content-center'>
+			<Button
+				label='Show'
+				icon='pi pi-external-link'
+				onClick={() => setVisible(true)}
+			/>
+			<Dialog
+				header='Header'
+				visible={visible}
+				onHide={() => setVisible(false)}
+				style={{ width: '50vw' }}
+				position='top'
+				breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
+				<DropZone />
+			</Dialog>
 		</div>
 	);
 }

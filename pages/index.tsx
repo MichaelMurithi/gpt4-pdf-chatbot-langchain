@@ -9,9 +9,9 @@ export default function Home() {
 
 	const renderPage = () => {
 		switch (router.pathname) {
-			case '/':
+			case '/s':
 				return <Chat />;
-			case '/documents':
+			case '/':
 				return <Documents />;
 			default:
 				return <div>Page Not Found</div>;

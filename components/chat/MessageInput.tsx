@@ -1,10 +1,11 @@
+import { ChatContext } from '@/pages/chat';
 import styles from '@/styles/Home.module.css';
-import useChat from '@/utils/use-chat';
 import { useSession } from 'next-auth/react';
+import { useContext } from 'react';
 import LoadingDots from './LoadingDots';
 
 const MessageInput = () => {
-  const { loading, textAreaRef, query, setQuery, handleEnter, handleSubmit } = useChat();
+  const { loading, textAreaRef, query, setQuery, handleEnter, handleSubmit } = useContext(ChatContext);
   const { data: session } = useSession();
 
   return (

@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
+import { ChatContext } from '@/pages/chat';
 import styles from '@/styles/Home.module.css';
 import { Message } from '@/types/chat';
-import useChat from '@/utils/use-chat';
+import { useContext } from 'react';
 import ReactMarkdown from 'react-markdown';
 import TypewriterComponent from 'typewriter-effect';
 import SourcesList from './SourcesList';
 
 const ChatResponse = ({message, index}: {message: Message, index: number }) => {
-    const { loading, messages } = useChat();
+    const {messages, loading} = useContext(ChatContext);
     let icon; let className;
 
     if (message.type === 'apiMessage') {

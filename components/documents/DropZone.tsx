@@ -56,12 +56,9 @@ export default function DropZone() {
 
 	const itemTemplate = (file: any, props: any) => {
 		return (
-			<div className='flex align-items-center flex-wrap'>
-				<div className='flex align-items-center' style={{ width: '40%' }}>
-					<span className='flex flex-column text-left ml-3'>
-						{file.name}
-						<small>{new Date().toLocaleDateString()}</small>
-					</span>
+			<div className='flex items-center flex-wrap justify-between'>
+				<div className='flex items-center' style={{ width: '40%' }}>
+					<span className='flex text-left ml-3'>{file.name}</span>
 				</div>
 				<Tag
 					value={props.formatSize}
@@ -109,7 +106,7 @@ export default function DropZone() {
 			<FileUpload
 				ref={fileUploadRef}
 				name='demo[]'
-				url='/api/upload'
+				url='/api/documents/upload'
 				multiple
 				accept={generateAcceptString()}
 				maxFileSize={1000000}

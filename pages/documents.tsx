@@ -14,7 +14,8 @@ export default function Documents() {
 				onClick={() => setVisible(true)}
 			/>
 			<Dialog
-				header='Header'
+				className='text-center'
+				header='Upload documents'
 				visible={visible}
 				onHide={() => setVisible(false)}
 				style={{ width: '50vw' }}

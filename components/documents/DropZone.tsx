@@ -1,52 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
 import { DropZoneHeaderOptions } from '@/types/documents.interface';
+import useDropZone from '@/utils/use-drop-zone';
 import { Button } from 'primereact/button';
-import { FileUpload, FileUploadFilesEvent } from 'primereact/fileupload';
+import { FileUpload } from 'primereact/fileupload';
 import { ProgressBar } from 'primereact/progressbar';
 import { Tag } from 'primereact/tag';
 import { Toast } from 'primereact/toast';
 import { Tooltip } from 'primereact/tooltip';
-import { useRef, useState } from 'react';
 
 export default function DropZone() {
-	const toast = useRef<Toast>(null);
-	const [totalSize, setTotalSize] = useState(0);
-	const fileUploadRef = useRef<any>(null);
-
-	const onTemplateSelect = (e: FileUploadFilesEvent) => {
-		let _totalSize = totalSize;
-		let files = e.files;
-
-		Object.keys(files).forEach((key: any) => {
-			_totalSize += files[key].size || 0;
-		});
-
-		setTotalSize(_totalSize);
-	};
-
-	const onTemplateUpload = (e: FileUploadFilesEvent) => {
-		let _totalSize = 0;
-
-		e.files.forEach((file: File) => {
-			_totalSize += file.size || 0;
-		});
-
-		setTotalSize(_totalSize);
-		toast.current!.show({
-			severity: 'info',
-			summary: 'Success',
-			detail: 'File Uploaded',
-		});
-	};
-
-	const onTemplateRemove = (file: File, callback: VoidFunction) => {
-		setTotalSize(totalSize - file.size);
-		callback();
-	};
-
-	const onTemplateClear = () => {
-		setTotalSize(0);
-	};
+	const {
+		totalSize,
+		fileUploadRef,
+		onTemplateRemove,
+		toast,
+		onTemplateUpload,
+		onTemplateSelect,
+		onTemplateClear,
+		chooseOptions,
+		uploadOptions,
+		cancelOptions,
+		generateAcceptString,
+	} = useDropZone();
 
 	const headerTemplate = (options: DropZoneHeaderOptions) => {
 		const { className, chooseButton, uploadButton, cancelButton } = options;
@@ -70,6 +45,7 @@ export default function DropZone() {
 				<div className='flex align-items-center gap-3 ml-auto'>
 					<span>{formatedValue} / 1 MB</span>
 					<ProgressBar
+						className='mt-1.5'
 						value={value}
 						showValue={false}
 						style={{ width: '10rem', height: '12px' }}></ProgressBar>
@@ -104,7 +80,7 @@ export default function DropZone() {
 
 	const emptyTemplate = () => {
 		return (
-			<div className='flex align-items-center flex-column'>
+			<div className='flex items-center flex-col'>
 				<i
 					className='pi pi-image mt-3 p-5'
 					style={{
@@ -116,28 +92,10 @@ export default function DropZone() {
 				<span
 					style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }}
 					className='my-5'>
-					Drag and drop document here
+					Drag and drop documents here
 				</span>
 			</div>
 		);
-	};
-
-	const chooseOptions = {
-		icon: 'pi pi-fw pi-images',
-		iconOnly: true,
-		className: 'custom-choose-btn p-button-rounded p-button-outlined',
-	};
-	const uploadOptions = {
-		icon: 'pi pi-fw pi-cloud-upload',
-		iconOnly: true,
-		className:
-			'custom-upload-btn p-button-success p-button-rounded p-button-outlined',
-	};
-	const cancelOptions = {
-		icon: 'pi pi-fw pi-times',
-		iconOnly: true,
-		className:
-			'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined',
 	};
 
 	return (
@@ -153,7 +111,7 @@ export default function DropZone() {
 				name='demo[]'
 				url='/api/upload'
 				multiple
-				accept='image/*'
+				accept={generateAcceptString()}
 				maxFileSize={1000000}
 				onUpload={onTemplateUpload}
 				onSelect={onTemplateSelect}

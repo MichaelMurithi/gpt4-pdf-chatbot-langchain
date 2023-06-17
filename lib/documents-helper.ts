@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import path from "path";
 
 export default class DocumentsHelper {
-    private static readonly extensionToMimetypeMap: Record<string, string> = {
+    static readonly extensionToMimetypeMap: Record<string, string> = {
         '.pdf': 'application/pdf',
         '.doc': 'application/msword',
         '.md': 'text/markdown',

@@ -5,22 +5,22 @@ import Chat from './chat';
 import Documents from './documents';
 
 export default function Home() {
-  const router = useRouter();
+	const router = useRouter();
 
-  const renderPage = () => {
-    switch (router.pathname) {
-      case '/':
-        return <Chat/>;
-      case '/documents':
-        return <Documents />;
-      default:
-        return <div>Page Not Found</div>;
-    }
-  };
-  return (
-    <Layout>
-      {renderPage()}
-      <Footer/>
-    </Layout>
-  );
+	const renderPage = () => {
+		switch (router.pathname) {
+			case '/':
+				return <Chat />;
+			case '/documents':
+				return <Documents />;
+			default:
+				return <div>Page Not Found</div>;
+		}
+	};
+	return (
+		<Layout>
+			{renderPage()}
+			<Footer />
+		</Layout>
+	);
 }

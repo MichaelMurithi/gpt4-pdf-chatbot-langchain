@@ -1,7 +1,7 @@
-import { Message } from "@/types/chat";
+import { ChatContextProps, Message } from "@/types/chat";
 import { useEffect, useRef, useState } from "react";
 
-export default function useChat() {
+export function useChat(): ChatContextProps {
     const [query, setQuery] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -118,5 +118,5 @@ export default function useChat() {
         console.log('error', error);
     }
 
-    return { loading, error, messages, textAreaRef, messageListRef, query, setQuery, handleEnter, handleSubmit }
+    return { loading, error, messages, textAreaRef, messageListRef, query, setQuery, handleEnter, handleSubmit };
 }

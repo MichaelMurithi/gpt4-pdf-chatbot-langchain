@@ -1,12 +1,11 @@
-
 const Footer = () => {
-  return (
-    <footer className="m-auto p-4">
-    <a href="https://twitter.com/murithi_myke">
-      Powered by LangChainAI. Current version built by (Twitter: @murithi_myke).
-    </a>
-  </footer>
-  )
-}
+	const year = new Date().getFullYear();
 
-export default Footer
+	return (
+		<footer className='m-auto p-4'>
+			<a href='https://twitter.com/murithi_myke'>&copy; MyGPT {year}</a>
+		</footer>
+	);
+};
+
+export default Footer;

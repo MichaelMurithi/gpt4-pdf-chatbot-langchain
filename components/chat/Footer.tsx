@@ -3,7 +3,7 @@ const Footer = () => {
 
 	return (
 		<footer className='m-auto p-4'>
-			<a href='https://twitter.com/murithi_myke'>&copy; My GPT {year}</a>
+			<a href='https://twitter.com/murithi_myke'>&copy; MyGPT {year}</a>
 		</footer>
 	);
 };

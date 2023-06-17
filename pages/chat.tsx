@@ -14,9 +14,6 @@ export default function Chat() {
   return (
     <ChatContext.Provider value={chatContext}>
       <div className="dark mx-auto flex flex-col gap-4">
-      <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-        Chat with your docs
-      </h1>
       <main className={styles.main}>
         <div className={styles.cloud}>
           <div ref={messageListRef} className={styles.messagelist}>
